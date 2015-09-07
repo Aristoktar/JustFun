@@ -39,7 +39,7 @@
 			this.textBoxInputUrl.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.textBoxInputUrl.Size = new System.Drawing.Size(258, 20);
 			this.textBoxInputUrl.TabIndex = 0;
-			this.textBoxInputUrl.Text = "http://www.thonky.com/qr-code-tutorial/error-correction-table";
+			this.textBoxInputUrl.Text = "http://www.thonky.com/qr-code-tutorial/alignment-pattern-locations";
 			// 
 			// labelInputUrl
 			// 

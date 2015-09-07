@@ -36,7 +36,7 @@ namespace ParserForQRCode {
 
 			foreach (XmlNode nodeTr in nodes)
 			{
-				str.Append( "{ ");
+				str.Append( "new []{ ");
 				//if (nodeTr.FirstChild.Attributes["rowspan"]!=null)
 				//{
 				//	lastVersion = nodeTr.FirstChild.FirstChild.Value;
@@ -45,28 +45,28 @@ namespace ParserForQRCode {
 				//{
 				//	str.Append ( lastVersion + ", " );
 				//}
-				for (int i = 0; i < nodeTr.ChildNodes.Count-2; i++)
+				for (int i = 1; i < nodeTr.ChildNodes.Count-1; i++)
 				{
 					try {
 						str.Append ( nodeTr.ChildNodes[i].FirstChild.Value + ", " );
 					}
 					catch ( NullReferenceException ) {
 						
-						str.Append ( "0 , " );
+						
 					}
 				}
 
 				try {
-					str.Append ( nodeTr.ChildNodes[nodeTr.ChildNodes.Count - 2].FirstChild.Value + " }," );
+					str.Append ( nodeTr.ChildNodes[nodeTr.ChildNodes.Count - 1].FirstChild.Value + " }," );
 				}
 				catch ( NullReferenceException ) {
 					
-					str.Append ( " 0 }," );
+					str.Append ( " }," );
 				}
 				str.Append( System.Environment.NewLine);
 			}
 
-			this.textBoxOutput.Text = str.ToString ().Replace ( "L" , "0" ).Replace ( "M" , "1" ).Replace ( "Q" , "2" ).Replace ( "H" , "3" ).Replace("-",", ");
+			this.textBoxOutput.Text = str.ToString ().Replace ( "QR Version " , "" );
 			//this.textBoxOutput.Text = str.ToString();
 		}
 	}
