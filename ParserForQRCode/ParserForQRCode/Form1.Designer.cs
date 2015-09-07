@@ -39,7 +39,7 @@
 			this.textBoxInputUrl.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.textBoxInputUrl.Size = new System.Drawing.Size(258, 20);
 			this.textBoxInputUrl.TabIndex = 0;
-			this.textBoxInputUrl.Text = "http://www.thonky.com/qr-code-tutorial/alignment-pattern-locations";
+			this.textBoxInputUrl.Text = "C:\\eeee.txt";
 			// 
 			// labelInputUrl
 			// 
@@ -65,7 +65,7 @@
 			this.textBoxOutput.Multiline = true;
 			this.textBoxOutput.Name = "textBoxOutput";
 			this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.textBoxOutput.Size = new System.Drawing.Size(295, 219);
+			this.textBoxOutput.Size = new System.Drawing.Size(568, 440);
 			this.textBoxOutput.TabIndex = 3;
 			// 
 			// buttonParse
@@ -99,7 +99,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1033, 359);
+			this.ClientSize = new System.Drawing.Size(1033, 519);
 			this.Controls.Add(this.labelDivId);
 			this.Controls.Add(this.textBoxInputTableId);
 			this.Controls.Add(this.buttonParse);

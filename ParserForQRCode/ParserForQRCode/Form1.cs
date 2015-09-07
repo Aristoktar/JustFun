@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -20,12 +21,12 @@ namespace ParserForQRCode {
 			HtmlDocument htmlDocument;
 			XmlDocument  doc = new XmlDocument();
 
-			doc.LoadXml(html.Replace("&","").Replace("\n","").Replace("\r",""));
+			//html = Regex.Match(html, @"/^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/").Value;
+			doc.LoadXml(html.Replace("\n","").Replace("\r",""));
 			var table = doc.GetElementsByTagName("table").Item(0);
 
-			table.RemoveChild(table.FirstChild);
 
-			var nodes =table.ChildNodes;
+			var nodes =table.FirstChild.ChildNodes;
 
 			string lastVersion = "-1";
 			int rowCount = 0;
@@ -36,7 +37,8 @@ namespace ParserForQRCode {
 
 			foreach (XmlNode nodeTr in nodes)
 			{
-				str.Append( "new []{ ");
+				str.Append( "{ ");
+				str.Append ( System.Environment.NewLine );
 				//if (nodeTr.FirstChild.Attributes["rowspan"]!=null)
 				//{
 				//	lastVersion = nodeTr.FirstChild.FirstChild.Value;
@@ -48,7 +50,7 @@ namespace ParserForQRCode {
 				for (int i = 1; i < nodeTr.ChildNodes.Count-1; i++)
 				{
 					try {
-						str.Append ( nodeTr.ChildNodes[i].FirstChild.Value + ", " );
+						str.Append ( "MaskPatterns.Pattern"+nodeTr.ChildNodes[i].FirstChild.Value + ", " );
 					}
 					catch ( NullReferenceException ) {
 						
@@ -56,11 +58,14 @@ namespace ParserForQRCode {
 					}
 				}
 
+
+				str.Append ( System.Environment.NewLine );
 				try {
-					str.Append ( nodeTr.ChildNodes[nodeTr.ChildNodes.Count - 1].FirstChild.Value + " }," );
+					str.Append ("new bool[] {"+ nodeTr.ChildNodes[nodeTr.ChildNodes.Count - 1].FirstChild.Value.Replace("0","false, ").Replace("1","true,")+"}" + System.Environment.NewLine+ " },");
 				}
 				catch ( NullReferenceException ) {
-					
+
+					str.Append ( System.Environment.NewLine );
 					str.Append ( " }," );
 				}
 				str.Append( System.Environment.NewLine);
