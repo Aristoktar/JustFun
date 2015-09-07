@@ -37,25 +37,37 @@ namespace ParserForQRCode {
 			foreach (XmlNode nodeTr in nodes)
 			{
 				str.Append( "{ ");
-				if (nodeTr.FirstChild.Attributes["rowspan"]!=null)
+				//if (nodeTr.FirstChild.Attributes["rowspan"]!=null)
+				//{
+				//	lastVersion = nodeTr.FirstChild.FirstChild.Value;
+				//}
+				//else
+				//{
+				//	str.Append ( lastVersion + ", " );
+				//}
+				for (int i = 0; i < nodeTr.ChildNodes.Count-2; i++)
 				{
-					lastVersion = nodeTr.FirstChild.FirstChild.Value;
-				}
-				else
-				{
-					str.Append ( lastVersion + ", " );
-				}
-				for (int i = 0; i < nodeTr.ChildNodes.Count-1; i++)
-				{
-					str.Append( nodeTr.ChildNodes[i].FirstChild.Value+", ");
+					try {
+						str.Append ( nodeTr.ChildNodes[i].FirstChild.Value + ", " );
+					}
+					catch ( NullReferenceException ) {
+						
+						str.Append ( "0 , " );
+					}
 				}
 
-				str.Append( nodeTr.ChildNodes[nodeTr.ChildNodes.Count - 1].FirstChild.Value + " },");
+				try {
+					str.Append ( nodeTr.ChildNodes[nodeTr.ChildNodes.Count - 2].FirstChild.Value + " }," );
+				}
+				catch ( NullReferenceException ) {
+					
+					str.Append ( " 0 }," );
+				}
 				str.Append( System.Environment.NewLine);
 			}
 
-			this.textBoxOutput.Text = str.ToString ().Replace ( "L" , "0" ).Replace ( "M" , "1" ).Replace ( "Q" , "2" ).Replace ( "H" , "3" );
-
+			this.textBoxOutput.Text = str.ToString ().Replace ( "L" , "0" ).Replace ( "M" , "1" ).Replace ( "Q" , "2" ).Replace ( "H" , "3" ).Replace("-",", ");
+			//this.textBoxOutput.Text = str.ToString();
 		}
 	}
 }
